@@ -1,0 +1,31 @@
+<template>
+  <template lwc:if={display}>
+    <p class="clickable" onclick={handleClick}>
+      <span>{relationship.fieldName}</span
+      >&nbsp;-&nbsp;<span>{relationship.relationshipName}</span>&nbsp;
+      <span class="slds-var-p-right_small">({relationship.objectName})</span
+      ><lightning-badge label={recordCount} icon-name="utility:record_alt"
+        >{recordCount}</lightning-badge
+      >
+    </p>
+    <template lwc:if={loading}>
+      <div class="slds-is-relative slds-var-p-around_medium">
+        <lightning-spinner
+          alternative-text="Loading"
+          size="small"
+        ></lightning-spinner>
+      </div>
+    </template>
+    <template lwc:else>
+      <template for:each={records} for:item="record">
+        <c-object-view-relationship-item
+          key={record.Id}
+          record-id={record.Id}
+          name-field={value.nameField}
+          value={record}
+          source-id={recordId}
+        ></c-object-view-relationship-item>
+      </template>
+    </template>
+  </template>
+</template>

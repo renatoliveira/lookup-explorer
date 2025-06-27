@@ -1,0 +1,4 @@
+.clickable:hover {
+  cursor: pointer;
+  background-color: var(--slds-g-color-brand-base-90);
+}

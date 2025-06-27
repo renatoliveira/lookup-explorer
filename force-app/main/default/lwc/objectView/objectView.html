@@ -1,0 +1,53 @@
+<template>
+  <lightning-card title={objectLabel} class="obj-view">
+    <lightning-button
+      label="View"
+      icon-name="utility:forward_up"
+      icon-position="right"
+      slot="actions"
+      onclick={handleNavigateToRecord}
+    ></lightning-button>
+    <div class="slds-var-p-around_medium">
+      <div class="slds-var-m-bottom_large">
+        <div class="slds-text-title_caps slds-var-m-bottom_medium"></div>
+        <div class="slds-var-m-bottom_small">
+          <span>&nbsp;{name}</span>&nbsp;(<span class="slds-text-font_monospace"
+            >{recordId}</span
+          >)
+        </div>
+      </div>
+      <template lwc:if={hasLookups}>
+        <div
+          class="slds-text-title slds-var-m-bottom_x-small slds-var-m-top_medium"
+        >
+          Lookups
+        </div>
+        <template for:each={lookupFields} for:item="lookup">
+          <c-object-view-lookup-item
+            key={lookup.name}
+            record-id={lookup.value}
+            source-id={recordId}
+            record-name={lookup.label}
+          >
+          </c-object-view-lookup-item>
+        </template>
+      </template>
+      <template lwc:if={hasChildRelationships}>
+        <div
+          class="slds-text-title slds-var-m-bottom_x-small slds-var-m-top_medium"
+        >
+          Child Relationships
+        </div>
+        <template for:each={childRelationships} for:item="relationship">
+          <c-object-child-relationship-view
+            key={relationship.fieldName}
+            relationship={relationship}
+            record-id={recordId}
+            class="slds-var-m-top_small slds-var-m-bottom_small"
+          >
+          </c-object-child-relationship-view>
+        </template>
+      </template>
+    </div>
+  </lightning-card>
+</template>

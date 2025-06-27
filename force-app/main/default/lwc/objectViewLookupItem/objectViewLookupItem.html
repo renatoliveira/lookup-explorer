@@ -1,0 +1,19 @@
+<template>
+  <template lwc:if={loading}>
+    <div class="slds-is-relative slds-var-p-around_medium">
+      <lightning-spinner
+        alternative-text="Loading"
+        size="small"
+      ></lightning-spinner>
+    </div>
+  </template>
+  <template lwc:else>
+    <p class="clickable" lwc:if={hasLookup}>
+      <span onclick={handleClick}>{recordName}</span>&nbsp;(<span
+        class="slds-text-font_monospace"
+        onclick={handleClick}
+        >{recordId}</span
+      >)
+    </p>
+  </template>
+</template>
