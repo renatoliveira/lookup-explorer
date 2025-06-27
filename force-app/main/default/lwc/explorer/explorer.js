@@ -1,10 +1,40 @@
-import { LightningElement, track } from "lwc";
+import getRecentRecords from "@salesforce/apex/ExplorerCtrl.getRecentRecords";
+import { LightningElement, track, wire } from "lwc";
 
 export default class Explorer extends LightningElement {
   recordId; // for the input
   isStartingPoint = true;
   history = [];
+  recent = [];
   @track records = [];
+
+  @wire(getRecentRecords)
+  wiredRecentRecords({ error, data }) {
+    if (data) {
+      this.recent = data;
+    }
+  }
+
+  handleRecentClick(event) {
+    const recordId = event.target.dataset.id;
+
+    if (!recordId) {
+      return;
+    }
+
+    const recentRecord = this.recent.find((record) => record.Id === recordId);
+
+    if (!recentRecord) {
+      return;
+    }
+
+    this.records.push({
+      name: recentRecord.Name,
+      id: recentRecord.Id
+    });
+
+    this.isStartingPoint = false;
+  }
 
   handleRecordIdChange(event) {
     if (!event?.target?.value) {

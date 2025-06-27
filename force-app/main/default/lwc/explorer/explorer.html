@@ -1,48 +1,44 @@
 <template>
   <div class="slds-theme_default slds-var-p-around_medium">
     <div class="slds-float_right">
-      <lightning-button
-        label="Reset"
-        variant="neutral"
-        onclick={handleReset}
-        class="slds-var-m-bottom_medium"
-      ></lightning-button>
+      <lightning-button label="Reset" variant="neutral" onclick={handleReset}
+        class="slds-var-m-bottom_medium"></lightning-button>
     </div>
     <!-- prompt the user for a record id so we can begin from that -->
     <div class="starting-point-input" lwc:if={isStartingPoint}>
-      <lightning-input
-        label="Record Id"
-        value={recordId}
-        onchange={handleRecordIdChange}
-        class="slds-var-m-bottom_medium"
-      >
-      </lightning-input>
+      <div>
+        <div class="slds-text-title slds-var-m-bottom_small slds-var-m-top_small">Start with a single record Id</div>
+        <lightning-input label="Record Id" value={recordId} onchange={handleRecordIdChange}
+          class="slds-var-m-bottom_medium">
+        </lightning-input>
+      </div>
+      <div>
+        <div class="slds-text-title slds-var-m-bottom_small">or</div>
+      </div>
+      <div class="slds-var-m-top_medium">
+        <div class="slds-text-title slds-var-m-bottom_small slds-var-m-top_small">Select one from your recent records
+        </div>
+        <template for:each={recent} for:item="recent">
+          <lightning-button key={recent.Id} label={recent.Name} variant="base" onclick={handleRecentClick}
+            data-id={recent.Id} class="slds-var-m-right_small"></lightning-button>
+        </template>
+      </div>
     </div>
 
     <div lwc:else>
       <div class="slds-var-m-around_medium">
         <lightning-breadcrumbs>
           <template for:each={records} for:item="record">
-            <lightning-breadcrumb
-              key={record.id}
-              label={record.name}
-              onclick={handleBreadcrumbClick}
-            ></lightning-breadcrumb>
+            <lightning-breadcrumb key={record.id} label={record.name}
+              onclick={handleBreadcrumbClick}></lightning-breadcrumb>
           </template>
         </lightning-breadcrumbs>
       </div>
       <div class="slds-grid slds-scrollable_x slds-gutters">
         <template for:each={records} for:item="record">
-          <div
-            key={record.id}
-            class="slds-var-p-left_x-small slds-var-p-right_x-small"
-          >
-            <c-object-view
-              record-id={record.id}
-              onopencontext={handleNewEvent}
-              onrecorddefinitionloaded={handleDefinitionLoaded}
-              onlookupclick={handleLookupClick}
-            ></c-object-view>
+          <div key={record.id} class="slds-var-p-left_x-small slds-var-p-right_x-small">
+            <c-object-view record-id={record.id} onopencontext={handleNewEvent}
+              onrecorddefinitionloaded={handleDefinitionLoaded} onlookupclick={handleLookupClick}></c-object-view>
           </div>
         </template>
       </div>

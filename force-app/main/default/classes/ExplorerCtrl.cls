@@ -31,4 +31,13 @@ public with sharing class ExplorerCtrl {
     public static Explorer.SObjectDefinition getRecordDefinition(Id recordId) {
         return e.getRecordDefinition(recordId);
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<RecentlyViewed> getRecentRecords() {
+        try {
+            return [SELECT Id, Name FROM RecentlyViewed];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
