@@ -9,3 +9,5 @@ Note: use this app as an admin for better results!
 ## Screenshots
 
 ![App view](assets/1.png)
+
+![Video](https://github.com/user-attachments/assets/e684e2e5-d397-488d-9035-011c6375aa91)
